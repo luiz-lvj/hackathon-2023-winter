@@ -1,1 +1,0 @@
-ALTER TABLE "user" ADD COLUMN auth_twitter bool not null DEFAULT (false);

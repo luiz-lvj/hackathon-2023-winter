@@ -1,30 +1,20 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home/Home'
-import { connectMetamask } from './utils/connectMetamask'
-import Layout from './pages/Layout/Layout';
-import Manager from './pages/Manager/Manager';
-import FundId from './pages/FundId/FundId';
-import CreateFund from './pages/CreateFund/CreateFund';
-import DashboardId from './pages/DashboardId/DashboardId';
-import FundsList from './pages/FundsList/FundsList';
-import Investor from './pages/Investor/Investor';
-import SuccessInvestment from './pages/SuccessInvestment/SuccessInvestment';
-import SuccessFund from './pages/SuccessFund/SuccessFund';
-import Proposals from './pages/Proposals/Proposals';
-import CreateProposal from './pages/CreateProposal/CreateProposal';
-import Test from './pages/Test/Test';
-import useLocalStorage from './hooks/useLocalStorage';
+import { BrowserRouter, Routes, Route  } from "react-router-dom"
+import { ThemeProvider } from "@/components/theme-provider"
+import Home from "./pages/Home"
+import Layout from "./pages/Layout"
+import CreateFund from "./pages/CreateFund"
+import FundsList from "./pages/Fundslist"
+import React, { useState } from "react"
+import { connectMetamask } from "./utils/connectMetamask"
+import ManagerArea from "./pages/Manager"
+import FundInvestor from "./pages/FundInvestor"
+import FundManager from "./pages/FundManager"
+import SuccessPage from "./pages/Success"
+import { ChainContext } from "./contexts/ChainContext"
 
-function App() {
+export default function App() {
 
-  const [theme] = useLocalStorage('theme', 'light');
-
-  useEffect(() => {
-    // Apply the saved theme
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
+  const [chain, setChain] = useState<number>(253253);
 
   //handle Metamask wallet connection
   const [isMetamaskInstalled, setIsMetamaskInstalled] = React.useState<boolean>(false);
@@ -48,7 +38,8 @@ function App() {
   }
 
   return (
-    <>
+    <ChainContext.Provider value={{chain, setChain}}>
+    <ThemeProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={
@@ -60,54 +51,40 @@ function App() {
             />
           }>
             <Route path="/" element={<Home />} />
-            <Route path="/fundslist" element={<FundsList
-              signer={signer}
-            />} />
-            <Route path="/fundslist/:id" element={
-              <FundId
+            <Route path="/funds-list" element={
+              <FundsList
+                signer={signer}
+              />} />
+            <Route path="/funds-list/:id" element={
+              <FundInvestor
                 account={account}
                 provider={provider}
                 signer={signer}
-              />} 
+              />}
             />
-            <Route path="/successinvestment" element={<SuccessInvestment />} />
-            <Route path="/manager" element={
-              <Manager 
-                account={account}
-                provider={provider}
-                signer={signer}
-              />} 
-              />
-            <Route path="/manager/:id" element={
-              <DashboardId 
-                account={account}
-                signer={signer}
-              />} 
-            />
-            <Route path="/successfund" element={<SuccessFund />} />
-            <Route path="/proposals" element={
-              <Proposals 
-              signer={signer}
-              />} />
-            <Route path="/create-proposal" element={
-              <CreateProposal
-              isMetamaskInstalled={isMetamaskInstalled}
-              signer={signer}
-              />} />
-            <Route path="/investor" element={<Investor />} />
-            <Route path="/test" element={<Test />} />
             <Route path="/create-fund" element={
               <CreateFund
-              isMetamaskInstalled={isMetamaskInstalled}
-              account={account}
-              signer={signer}
+                account={account}
+                signer={signer} 
+              />} />
+            <Route path="/success" element={<SuccessPage />} />
+            <Route path="/manager" element={
+              <ManagerArea 
+                account={account}
+                provider={provider}
+                signer={signer}
+              />} />
+            <Route path="/manager/:id" element={
+              <FundManager
+                account={account}
+                provider={provider}
+                signer={signer}
               />}
             />
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </ThemeProvider>
+  </ChainContext.Provider>
   )
 }
-
-export default App

@@ -1,1 +1,0 @@
-nohup /usr/bin/node ~/chat/chat_server.min.js &

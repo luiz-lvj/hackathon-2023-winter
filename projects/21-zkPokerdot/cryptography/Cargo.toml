@@ -1,5 +1,0 @@
-[workspace]
-
-members = [
-    "barnett-smart-card-protocol"
-]

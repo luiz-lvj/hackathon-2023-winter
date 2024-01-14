@@ -1,1 +1,0 @@
-CREATE UNIQUE INDEX group_owner_IDX ON "group" (owner);

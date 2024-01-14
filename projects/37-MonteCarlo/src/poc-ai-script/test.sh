@@ -1,1 +1,0 @@
-jupytext adhoc_unit_test.py  -k python3 --execute -o adhoc_unit_test.ipynb

@@ -1,3 +1,0 @@
-substrate-interface
-robonomics-interface
-pyyaml

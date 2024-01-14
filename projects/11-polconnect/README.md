@@ -1,3 +1,0 @@
-# Polconnect    
-
-**Stay tuned**

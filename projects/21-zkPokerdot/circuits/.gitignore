@@ -1,8 +1,0 @@
-cache
-out
-*.ptau
-node_modules/
-*_obj/
-.env-secret
-!.env
-coverage/

@@ -1,1 +1,0 @@
-ALTER TABLE twitter_user ADD share_supply INTEGER DEFAULT (0);

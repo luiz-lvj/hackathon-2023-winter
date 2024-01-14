@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Substrate.Hexalem.NET.RestService.props" />
-</Project>

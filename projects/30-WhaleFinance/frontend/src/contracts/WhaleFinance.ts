@@ -23840,4 +23840,3 @@ const WhaleFinance = {
 
 export const WhaleFinanceAbi = WhaleFinance["abi"]
 
-
